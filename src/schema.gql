@@ -1,0 +1,44 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ImageGql {
+  line: String!
+  image: String!
+}
+
+type Station {
+  name: String!
+  images: [ImageGql!]!
+  lat: Float!
+  long: Float!
+}
+
+type Query {
+  stations: [Station!]!
+  station(id: ID!): Station!
+}
+
+type Mutation {
+  createStation(createStationInput: CreateStationInput!): Station!
+  updateStation(updateStationInput: UpdateStationInput!): Station!
+  removeStation(id: ID!): Station!
+  insertSeedMxNetwork: [Station!]!
+}
+
+input CreateStationInput {
+  """Station Name"""
+  name: String!
+  images: [String!]! = []
+  lat: Float!
+  long: Float!
+}
+
+input UpdateStationInput {
+  """Station Name"""
+  name: String
+  images: [String!] = []
+  lat: Float
+  long: Float
+  id: ID!
+}
