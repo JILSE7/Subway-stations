@@ -14,6 +14,16 @@ type Station {
   long: Float!
 }
 
+type Line {
+  name: String!
+  images: [Station!]!
+}
+
+type StationResponse {
+  stations: [Station!]!
+  lines: [Line!]!
+}
+
 type Query {
   stations: [Station!]!
   station(id: ID!): Station!
@@ -23,7 +33,7 @@ type Mutation {
   createStation(createStationInput: CreateStationInput!): Station!
   updateStation(updateStationInput: UpdateStationInput!): Station!
   removeStation(id: ID!): Station!
-  insertSeedMxNetwork: [Station!]!
+  insertSeedMxNetwork: StationResponse!
 }
 
 input CreateStationInput {

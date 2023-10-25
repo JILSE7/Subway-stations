@@ -3,6 +3,7 @@ import { StationsService } from '../services/stations.service';
 import { Station } from '../entities/station.entity';
 import { CreateStationInput } from '../dto/create-station.input';
 import { UpdateStationInput } from '../dto/update-station.input';
+import { StationResponse } from '@app/common/types/StationResponse';
 
 @Resolver(() => Station)
 export class StationsResolver {
@@ -40,7 +41,7 @@ export class StationsResolver {
     return this.stationsService.remove(id);
   }
 
-  @Mutation(() => [Station])
+  @Mutation(() => StationResponse)
   insertSeedMxNetwork() {
     return this.stationsService.insertSeedMxNetwork();
   }
