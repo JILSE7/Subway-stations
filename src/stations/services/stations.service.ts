@@ -5,12 +5,14 @@ import { CreateStationInput } from '../dto/create-station.input';
 import { UpdateStationInput } from '../dto/update-station.input';
 import { Station } from '../entities/station.entity';
 import { systemSubway } from '../data/stations';
+import { Line } from '../entities/line.entity';
 
 @Injectable()
 export class StationsService {
   constructor(
     @InjectModel(Station.name)
-    private readonly stationModel: Model<Station> /* @InjectModel(Line.name) private readonly lineModel: Model<Line>, */,
+    private readonly stationModel: Model<Station>,
+    @InjectModel(Line.name) private readonly lineModel: Model<Line>,
   ) {}
 
   create(createStationInput: CreateStationInput) {
@@ -35,7 +37,7 @@ export class StationsService {
 
   async insertSeedMxNetwork() {
     await this.stationModel.deleteMany({});
-    // await this.lineModel.deleteMany({});
+    await this.lineModel.deleteMany({});
 
     const stationsAux = [];
     const linesAux = [];
@@ -71,6 +73,25 @@ export class StationsService {
 
     const newStations = await this.stationModel.insertMany(stationsAux);
 
-    return newStations;
+    systemSubway.forEach(async ({ line, stations }) => {
+      const newLine = {
+        name: line,
+        stations: stations.map((a) => {
+          const station = newStations.find((b) => b.name === a.name);
+          return station._id;
+        }),
+      };
+
+      console.log(newLine);
+
+      linesAux.push(newLine);
+    });
+
+    const newLines = await this.lineModel.insertMany(linesAux);
+
+    return {
+      lines: newLines,
+      stations: newStations,
+    };
   }
 }
