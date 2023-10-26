@@ -125,7 +125,7 @@ export class StationsService {
         $project: {
           _id: 1,
           name: 1,
-          lineFamily: 1,
+          subwayFamily: 1,
           line_id: 1,
           stations: 1,
           image: {
@@ -147,7 +147,7 @@ export class StationsService {
           _id: '$_id',
           name: { $first: '$name' },
           stations: { $push: '$stations' },
-          lineFamily: { $first: '$lineFamily' },
+          subwayFamily: { $first: '$subwayFamily' },
           line_id: { $first: '$line_id' },
         },
       },
