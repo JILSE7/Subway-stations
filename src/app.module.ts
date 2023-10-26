@@ -39,6 +39,7 @@ import * as Joi from 'joi';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      introspection: true,
     }),
     StationsModule,
     MetroCdmxModule,
