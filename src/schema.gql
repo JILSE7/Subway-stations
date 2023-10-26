@@ -8,22 +8,38 @@ type ImageGql {
 }
 
 type Station {
+  _id: String!
   name: String!
   images: [ImageGql!]!
   lat: Float!
   long: Float!
+  station_id: String!
+}
+
+type Line {
+  _id: String!
+  name: String!
+  stations: [Station!]!
+  subwayFamily: String
+  line_id: String!
+}
+
+type StationResponse {
+  stations: [Station!]!
+  lines: [Line!]!
 }
 
 type Query {
   stations: [Station!]!
   station(id: ID!): Station!
+  metroCdmx: [Line!]!
 }
 
 type Mutation {
   createStation(createStationInput: CreateStationInput!): Station!
   updateStation(updateStationInput: UpdateStationInput!): Station!
   removeStation(id: ID!): Station!
-  insertSeedMxNetwork: [Station!]!
+  insertSeedMxNetwork: StationResponse!
 }
 
 input CreateStationInput {

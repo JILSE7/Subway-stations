@@ -3,6 +3,8 @@ import { StationsService } from '../services/stations.service';
 import { Station } from '../entities/station.entity';
 import { CreateStationInput } from '../dto/create-station.input';
 import { UpdateStationInput } from '../dto/update-station.input';
+import { StationResponse } from '@app/common/types/constants/StationResponse';
+import { SubwayFamily } from '@app/common/types/enums/line-family.enum';
 
 @Resolver(() => Station)
 export class StationsResolver {
@@ -17,7 +19,7 @@ export class StationsResolver {
 
   @Query(() => [Station], { name: 'stations' })
   findAll() {
-    return this.stationsService.findAll();
+    return this.stationsService.findByLineFamily2(SubwayFamily.Metro_CDMX);
   }
 
   @Query(() => Station, { name: 'station' })
@@ -40,7 +42,7 @@ export class StationsResolver {
     return this.stationsService.remove(id);
   }
 
-  @Mutation(() => [Station])
+  @Mutation(() => StationResponse)
   insertSeedMxNetwork() {
     return this.stationsService.insertSeedMxNetwork();
   }
