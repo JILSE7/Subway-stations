@@ -1,16 +1,22 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, HydratedDocument } from 'mongoose';
+import {
+  Document,
+  Schema as SchemaMoongose,
+  SchemaTypes,
+  Types,
+} from 'mongoose';
 import { ImageGql } from '../dto/args/image.arg';
 
 const stationImgDefault =
   'https://www.mexicodesconocido.com.mx/wp-content/uploads/2020/04/metro_logotipo.png';
 
-export type StationDocument = HydratedDocument<Station>;
-
 @Schema()
 @ObjectType()
 export class Station extends Document {
+  @Field(() => String)
+  _id: SchemaMoongose.Types.ObjectId;
+
   @Field(() => String, { name: 'name' })
   @Prop({
     unique: true,
@@ -28,7 +34,7 @@ export class Station extends Document {
     type: [
       {
         line: { type: 'String' },
-        image: { type: 'String', default: stationImgDefault, _id: 1 },
+        image: { type: 'String', default: stationImgDefault /* _id: 1 */ },
       },
     ],
     index: false,
@@ -46,6 +52,14 @@ export class Station extends Document {
     unique: false,
   })
   long: number;
+
+  @Field(() => String, { name: 'station_id' })
+  @Prop({
+    unique: true,
+    required: true,
+    index: true,
+  })
+  station_id: string;
 }
 
 export const StationSchema = SchemaFactory.createForClass(Station);

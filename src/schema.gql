@@ -8,15 +8,20 @@ type ImageGql {
 }
 
 type Station {
+  _id: String!
   name: String!
   images: [ImageGql!]!
   lat: Float!
   long: Float!
+  station_id: String!
 }
 
 type Line {
+  _id: String!
   name: String!
-  images: [Station!]!
+  stations: [Station!]!
+  subwayFamily: String
+  line_id: String!
 }
 
 type StationResponse {
@@ -27,6 +32,7 @@ type StationResponse {
 type Query {
   stations: [Station!]!
   station(id: ID!): Station!
+  metroCdmx: [Line!]!
 }
 
 type Mutation {

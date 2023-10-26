@@ -10,3 +10,12 @@ export class StationResponse {
   @Field(() => [Line])
   lines: Line[];
 }
+
+@ObjectType()
+export class Response {
+  @Field(() => [Boolean])
+  ok: boolean;
+
+  @Field(() => [Line])
+  lines: Line[];
+}

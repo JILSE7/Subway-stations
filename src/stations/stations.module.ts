@@ -15,5 +15,6 @@ import { Line, LineSchema } from './entities/line.entity';
     ]),
   ],
   providers: [StationsResolver, StationsService],
+  exports: [StationsService],
 })
 export class StationsModule {}

@@ -6,6 +6,7 @@ import { join } from 'path';
 import { StationsModule } from './stations/stations.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MetroCdmxModule } from './metro-cdmx/metro-cdmx.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -40,6 +41,7 @@ import * as Joi from 'joi';
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     StationsModule,
+    MetroCdmxModule,
   ],
   controllers: [],
   providers: [],
